@@ -12,12 +12,46 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# <ENTER_REQUIRED_INPUT_VARIABLES>
+# ------- General and Provider Resources -------
 
-# ------- Global settings -------
-variable "name_prefix" {
+variable "prefix" {
   type        = string
-  description = "Shorthand name to use when naming resources."
+  description = "Deployment prefix for all cloud-provider assets"
+
+  validation {
+    condition     = length(var.prefix) < 8 || length(var.prefix) > 4
+    error_message = "Valid length for prefix is between 4-7 characters."
+  }
 }
 
-# ------- Cloud Settings -------
+variable "region" {
+  type        = string
+  description = "AWS region"
+}
+
+variable "asset_tags" {
+  type        = map(string)
+  default     = {}
+  description = "Map of tags applied to all cloud-provider assets"
+}
+
+# ------- Network Resources -------
+variable "vpc_cidr" {
+  type        = string
+  description = "VPC CIDR Block (primary)"
+  default     = "10.10.0.0/16"
+}
+
+variable "ingress_ssh_cidrs" {
+  type        = list(string)
+  description = "List of CIDRs to add to ingress SSH inbound rules."
+
+  default = []
+}
+
+# ------- SSH Resources -------
+
+variable "ssh_private_key_file" {
+  type        = string
+  description = "Local SSH private key file"
+}
