@@ -102,4 +102,6 @@ variable "volumes" {
   )
 
   default = null
+
+  description = "Additional storage volumes to attach to the hosts. Each volume is defined by a device name, mount point, size, type, and optional tags."
 }

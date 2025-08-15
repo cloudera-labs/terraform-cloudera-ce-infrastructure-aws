@@ -16,7 +16,7 @@ provider "aws" {
   region = var.region
   default_tags {
     tags = var.asset_tags
-  }  
+  }
 }
 
 # ------- VPC -------

@@ -61,7 +61,7 @@ No modules.
 | <a name="input_quantity"></a> [quantity](#input\_quantity) | Number of instances. Defaults to a single instance without numbering (bare name). | `number` | `0` | no |
 | <a name="input_root_volume"></a> [root\_volume](#input\_root\_volume) | Root volume details | <pre>object({<br/>    delete_on_termination = optional(bool, true)<br/>    volume_size           = optional(number, 100)<br/>    volume_type           = optional(string)<br/>  })</pre> | `{}` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Map of tags applied to all cloud-provider assets. | `map(any)` | `{}` | no |
-| <a name="input_volumes"></a> [volumes](#input\_volumes) | ------- Additional Storage Volumes ------- | <pre>list(object({<br/>    device_name = string<br/>    mount       = string<br/>    volume_size = optional(number, 100)<br/>    volume_type = optional(string, "gp2")<br/>    tags        = optional(map(string), {})<br/>    }<br/>    )<br/>  )</pre> | `null` | no |
+| <a name="input_volumes"></a> [volumes](#input\_volumes) | Additional storage volumes to attach to the hosts. Each volume is defined by a device name, mount point, size, type, and optional tags. | <pre>list(object({<br/>    device_name = string<br/>    mount       = string<br/>    volume_size = optional(number, 100)<br/>    volume_type = optional(string, "gp2")<br/>    tags        = optional(map(string), {})<br/>    }<br/>    )<br/>  )</pre> | `null` | no |
 
 ## Outputs
 

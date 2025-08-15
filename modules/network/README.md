@@ -63,9 +63,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_prefix"></a> [prefix](#input\_prefix) | Deployment prefix for all cloud-provider assets | `string` | n/a | yes |
-| <a name="input_region"></a> [region](#input\_region) | AWS region | `string` | n/a | yes |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | VPC ID | `string` | n/a | yes |
-| <a name="input_asset_tags"></a> [asset\_tags](#input\_asset\_tags) | Map of tags applied to all cloud-provider assets | `map(any)` | `{}` | no |
 | <a name="input_nat_gateway_name"></a> [nat\_gateway\_name](#input\_nat\_gateway\_name) | NAT gateway name | `string` | `""` | no |
 | <a name="input_private_route_table_name"></a> [private\_route\_table\_name](#input\_private\_route\_table\_name) | Private Route Table name prefix | `string` | `""` | no |
 | <a name="input_private_subnet_name"></a> [private\_subnet\_name](#input\_private\_subnet\_name) | Private Subnet name prefix | `string` | `""` | no |

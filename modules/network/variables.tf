@@ -13,13 +13,6 @@
 # limitations under the License.
 
 # ------- Required -------
-
-variable "asset_tags" {
-  type        = map(any)
-  default     = {}
-  description = "Map of tags applied to all cloud-provider assets"
-}
-
 variable "prefix" {
   type        = string
   description = "Deployment prefix for all cloud-provider assets"
@@ -28,11 +21,6 @@ variable "prefix" {
     condition     = length(var.prefix) < 8 || length(var.prefix) > 4
     error_message = "Valid length for prefix is between 4-7 characters."
   }
-}
-
-variable "region" {
-  type        = string
-  description = "AWS region"
 }
 
 variable "vpc_id" {
