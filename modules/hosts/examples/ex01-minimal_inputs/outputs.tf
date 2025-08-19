@@ -12,20 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# ------- Global Settings -------
-prefix = "ex01"
-
-region = "<ENTER_VALUE>" # Change this to specify Cloud Provider region, e.g. eu-west-1
-
-asset_tags = {
-  "Environment" = "Development"
+output "ssh_key_pair" {
+  value = {
+    name        = aws_key_pair.ex01.key_name
+    public_key  = trimspace(data.tls_public_key.ex01.public_key_openssh)
+    type        = aws_key_pair.ex01.key_type
+    fingerprint = aws_key_pair.ex01.fingerprint
+  }
+  description = "SSH public key"
 }
 
-# ------- Network settings -------
-ingress_ssh_cidrs = [
-  "<ENTER_CIDR>",
-  "<ENTER_CIDR>"
-]
+output "vpc" {
+  value       = aws_vpc.ex01.id
+  description = "AWS VPC"
+}
 
-# ------- SSH settings -------
-ssh_private_key_file = "<ENTER_SSH_PRIVATE_KEY_FILE_PATH>" # Path to the SSH
+output "nodes" {
+  value = values(module.ex01_hosts)
+
+  description = "Node information including IDs, names, private and public IPs"
+}

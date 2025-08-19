@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# ------- Global Settings -------
+# ------- General and Provider Resources -------
 prefix = "ex01"
 
 region = "<ENTER_VALUE>" # Change this to specify Cloud Provider region, e.g. eu-west-1
@@ -20,12 +20,3 @@ region = "<ENTER_VALUE>" # Change this to specify Cloud Provider region, e.g. eu
 asset_tags = {
   "Environment" = "Development"
 }
-
-# ------- Network settings -------
-ingress_ssh_cidrs = [
-  "<ENTER_CIDR>",
-  "<ENTER_CIDR>"
-]
-
-# ------- SSH settings -------
-ssh_private_key_file = "<ENTER_SSH_PRIVATE_KEY_FILE_PATH>" # Path to the SSH

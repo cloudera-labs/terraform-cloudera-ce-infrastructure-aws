@@ -41,17 +41,3 @@ variable "vpc_cidr" {
   description = "VPC CIDR Block (primary)"
   default     = "10.10.0.0/16"
 }
-
-variable "ingress_ssh_cidrs" {
-  type        = list(string)
-  description = "List of CIDRs to add to ingress SSH inbound rules."
-
-  default = []
-}
-
-# ------- SSH Resources -------
-
-variable "ssh_private_key_file" {
-  type        = string
-  description = "Local SSH private key file"
-}
