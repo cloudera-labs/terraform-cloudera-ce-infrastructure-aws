@@ -16,10 +16,29 @@ terraform {
   required_version = ">= 0.13"
   required_providers {
     aws = {
-      source  = "hashicorp/aws",
-      version = ">= 4.60.0",
+      source                = "hashicorp/aws",
+      version               = ">= 4.60.0",
+      configuration_aliases = [aws.pricing_calculator]
     }
   }
+}
+
+# provider "aws" {
+#   alias  = "cost_calculator"
+#   region = "us-east-1"
+# }
+
+locals {
+  pricing_os_map = {
+    "Red Hat Enterprise Linux" = "RHEL"
+    "Ubuntu"                   = "Linux"
+    "Linux/UNIX"               = "Linux"
+    # "Windows"                  = "Windows"
+  }
+  # pricing_arch_map = {
+  #   "x86_64" = "64-bit"
+  #   "arm64"  = "ARM64"
+  # }
 }
 
 data "aws_ami" "pvc_base" {
@@ -54,4 +73,52 @@ resource "aws_instance" "pvc_base" {
   tags = merge(var.tags, {
     Name = var.quantity == 0 ? var.name : format("%s-%02d", var.name, count.index + var.offset + 1)
   })
+}
+
+data "aws_pricing_product" "pvc_base" {
+  for_each = { for idx, instance in aws_instance.pvc_base : idx => instance }
+
+  provider = aws.pricing_calculator
+
+  service_code = "AmazonEC2"
+
+  filters {
+    field = "instanceType"
+    value = each.value.instance_type
+  }
+
+  filters {
+    field = "regionCode"
+    value = each.value.region
+  }
+
+  filters {
+    field = "operatingSystem"
+    value = local.pricing_os_map[data.aws_ami.pvc_base.platform_details]
+  }
+
+  # filters {
+  #     field = "processorArchitecture"
+  #     value = local.pricing_arch_map[data.aws_ami.pvc_base.architecture]
+  # }
+
+  filters {
+    field = "marketoption"
+    value = "OnDemand" # TODO Review marketoption as a variable to the module
+  }
+
+  filters {
+    field = "preInstalledSw"
+    value = "NA"
+  }
+
+  filters {
+    field = "tenancy"
+    value = "Shared"
+  }
+
+  filters {
+    field = "capacitystatus"
+    value = "Used"
+  }
 }

@@ -23,7 +23,8 @@ repos:
 
     # see https://github.com/antonbabenko/pre-commit-terraform#terraform_validate
     - id: terraform_validate
-      exclude: examples/.*
+      #exclude: examples/.*
+      exclude: 'modules/hosts/[^/]+$'
 
     # see https://github.com/antonbabenko/pre-commit-terraform#terraform_providers_lock
     - id: terraform_providers_lock

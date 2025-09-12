@@ -21,3 +21,19 @@ output "storage_volumes" {
   value       = local.attached_volumes_by_instance
   description = "Additional Storage Volumes"
 }
+
+locals {
+  pvc_base_pricing_data = values(
+    values(
+      jsondecode(values(data.aws_pricing_product.pvc_base)[0].result).terms.OnDemand
+    )[0].priceDimensions
+  )[0]
+}
+
+output "pricing" {
+  description = "The hourly cost and details for each instance of this module."
+  value = {
+    price_per_hour    = local.pvc_base_pricing_data.pricePerUnit.USD
+    price_description = local.pvc_base_pricing_data.description
+  }
+}
