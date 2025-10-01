@@ -50,7 +50,6 @@ resource "aws_vpc_dhcp_options_association" "base" {
 module "ex01_network" {
   source = "../.."
 
-  region = var.region
   prefix = var.prefix
   vpc_id = aws_vpc.base.id
 
